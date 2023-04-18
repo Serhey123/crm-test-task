@@ -7,6 +7,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import schema from '../../schemas/loginSchema.js';
 import Alert from '../../UI/Alert/Alert.jsx';
 import errorsPicker from '../../utils/errorsPicker.js';
+import { logIn } from '../../services/fetchSevice.js';
 
 export default function LoginPage() {
   const {
@@ -21,6 +22,7 @@ export default function LoginPage() {
 
   const submit = data => {
     console.log(data);
+    logIn(data);
     reset();
   };
 

@@ -1,3 +1,5 @@
+import { auth } from '../../config/firebase';
+
 export default function HomePage() {
   return (
     <div className="pos-f-t">
@@ -13,6 +15,7 @@ export default function HomePage() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
+        {auth.currentUser ? <h1>{auth.currentUser.email}</h1> : <h1>Guest</h1>}
       </nav>
       <div className="collapse" id="navbarToggleExternalContent">
         <div className="p-4">

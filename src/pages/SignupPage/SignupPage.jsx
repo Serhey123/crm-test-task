@@ -7,6 +7,7 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import schema from '../../schemas/signupSchema.js';
 import Alert from '../../UI/Alert/Alert.jsx';
 import errorsPicker from '../../utils/errorsPicker.js';
+import { signUp } from '../../services/fetchSevice.js';
 
 export default function SignupPage() {
   const {
@@ -21,6 +22,7 @@ export default function SignupPage() {
 
   const submit = data => {
     console.log(data);
+    signUp(data);
     reset();
   };
 
