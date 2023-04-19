@@ -7,7 +7,8 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import schema from '../../schemas/loginSchema.js';
 import Alert from '../../UI/Alert/Alert.jsx';
 import errorsPicker from '../../utils/errorsPicker.js';
-import { logIn } from '../../services/fetchSevice.js';
+import { logIn } from '../../redux/auth/auth-operations';
+import { useDispatch } from 'react-redux';
 
 export default function LoginPage() {
   const {
@@ -20,9 +21,11 @@ export default function LoginPage() {
     resolver: joiResolver(schema),
   });
 
+  const dispatch = useDispatch();
+
   const submit = data => {
     console.log(data);
-    logIn(data);
+    dispatch(logIn(data));
     reset();
   };
 

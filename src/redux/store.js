@@ -1,4 +1,5 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import authReducer from './auth/auth-slice';
 import {
   persistStore,
   persistReducer,
@@ -18,7 +19,9 @@ const authPersistConfig = {
 };
 
 export const store = configureStore({
-  reducer: () => {},
+  reducer: {
+    auth: persistReducer(authPersistConfig, authReducer),
+  },
   middleware: getDefaultMiddleware({
     serializableCheck: {
       ignoreActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],

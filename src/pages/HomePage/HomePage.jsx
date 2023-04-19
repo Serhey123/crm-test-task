@@ -1,6 +1,8 @@
-import { auth } from '../../config/firebase';
+import { useSelector } from 'react-redux';
+import { selectors } from '../../redux/auth';
 
 export default function HomePage() {
+  const name = useSelector(selectors.getUserName);
   return (
     <div className="pos-f-t">
       <nav className="navbar navbar-light ">
@@ -15,7 +17,7 @@ export default function HomePage() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        {auth.currentUser ? <h1>{auth.currentUser.email}</h1> : <h1>Guest</h1>}
+        {name ? <h1>{name}</h1> : <h1>Guest</h1>}
       </nav>
       <div className="collapse" id="navbarToggleExternalContent">
         <div className="p-4">

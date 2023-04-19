@@ -1,10 +1,11 @@
-import { auth } from '../config/firebase';
+import { auth, db } from '../config/firebase';
 import {
   createUserWithEmailAndPassword,
-  updateProfile,
+  //   updateProfile,
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
+import { collection, addDoc } from 'firebase/firestore';
 
 export async function signUp(data) {
   const { user } = await createUserWithEmailAndPassword(
@@ -14,6 +15,11 @@ export async function signUp(data) {
   );
   console.log(user);
   console.log(auth);
+  const docRef = await addDoc(collection(db, 'users'), {
+    name: data.name,
+    email: data.email,
+  });
+  console.log('Document written with ID: ', docRef.id);
 }
 
 export async function logIn(data) {
@@ -24,4 +30,8 @@ export async function logIn(data) {
   );
   console.log(user);
   console.log(auth);
+}
+
+export async function logOut() {
+  await signOut(auth);
 }
