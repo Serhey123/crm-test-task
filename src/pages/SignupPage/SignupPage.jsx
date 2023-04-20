@@ -8,9 +8,12 @@ import schema from '../../schemas/signupSchema.js';
 import Alert from '../../UI/Alert/Alert.jsx';
 import errorsPicker from '../../utils/errorsPicker.js';
 import { signUp } from '../../redux/auth/auth-operations';
-import { useDispatch } from 'react-redux/es/exports.js';
+import { useDispatch, useSelector } from 'react-redux/es/exports.js';
+import { selectors } from '../../redux/auth/index.js';
 
 export default function SignupPage() {
+  const signupError = useSelector(selectors.getSignUpError);
+
   const {
     handleSubmit,
     register,
@@ -29,42 +32,45 @@ export default function SignupPage() {
     reset();
   };
 
-  const error = errorsPicker(errors);
+  const error = errorsPicker({ ...errors, signupError });
 
   return (
-    <Card>
-      {error && <Alert>{error.message}</Alert>}
-      <form onSubmit={handleSubmit(submit)}>
-        <Input
-          label="Name"
-          type="text"
-          placeholder="name"
-          id="name"
-          register={register('name')}
-        />
-        <Input
-          label="Email"
-          type="text"
-          placeholder="email"
-          id="email"
-          register={register('email')}
-        />
-        <Input
-          label="Password"
-          type="password"
-          placeholder="password"
-          id="password"
-          register={register('password')}
-        />
-        <Input
-          label="Confirm password"
-          type="password"
-          placeholder="password"
-          id="confirmpassword"
-          register={register('refPassword')}
-        />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Card>
+    <>
+      <h1 style={{ textAlign: 'center' }}>Sign Up</h1>
+      <Card>
+        {error && <Alert>{error.message}</Alert>}
+        <form onSubmit={handleSubmit(submit)}>
+          <Input
+            label="Name"
+            type="text"
+            placeholder="name"
+            id="name"
+            register={register('name')}
+          />
+          <Input
+            label="Email"
+            type="text"
+            placeholder="email"
+            id="email"
+            register={register('email')}
+          />
+          <Input
+            label="Password"
+            type="password"
+            placeholder="password"
+            id="password"
+            register={register('password')}
+          />
+          <Input
+            label="Confirm password"
+            type="password"
+            placeholder="password"
+            id="confirmpassword"
+            register={register('refPassword')}
+          />
+          <Button type="submit">Submit</Button>
+        </form>
+      </Card>
+    </>
   );
 }

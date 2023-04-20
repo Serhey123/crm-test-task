@@ -59,11 +59,11 @@ const authSlice = createSlice({
     },
     [signUp.rejected](state) {
       state.isLoading = false;
-      state.error.signUp = true;
+      state.error.signUp = { message: 'User alredy exist!' };
     },
     [logIn.rejected](state) {
       state.isLoading = false;
-      state.error.logIn = true;
+      state.error.logIn = { message: 'Invalid email or password!' };
     },
     [logOut.rejected](state) {
       state.isLoading = false;

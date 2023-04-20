@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { auth, db } from '../../config/firebase';
+import { auth, db, provider } from '../../config/firebase';
 import axios from 'axios';
 import { collection, addDoc } from 'firebase/firestore';
 import {
@@ -7,6 +7,8 @@ import {
   updateProfile,
   signInWithEmailAndPassword,
   signOut,
+  signInWithPopup,
+  GoogleAuthProvider,
 } from 'firebase/auth';
 
 export const signUp = createAsyncThunk('auth/register', async data => {
@@ -69,3 +71,13 @@ export const fetchCurrentUser = createAsyncThunk(
     }
   },
 );
+
+export const logInWithGoogle = createAsyncThunk('auth/login', async () => {
+  try {
+    const { user } = await signInWithPopup(auth, provider);
+
+    return user;
+  } catch (error) {
+    throw new Error(error);
+  }
+});
